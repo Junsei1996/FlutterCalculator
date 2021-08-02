@@ -6,8 +6,16 @@ class MyButton extends StatelessWidget {
   final textColor;
   final String buttonText;
   final buttonTapped;
+  final textAlignment;
+  final alignment;
 
   final ButtonStyle style = ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(40.0),
+      ));
+
+  final ButtonStyle style1 = ElevatedButton.styleFrom(
+    padding: EdgeInsets.only(left: 30),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(40.0),
       ));
@@ -16,18 +24,24 @@ class MyButton extends StatelessWidget {
       {this.backgroundColor,
       this.buttonTapped,
       required this.buttonText,
-      this.textColor});
+      this.textColor,
+      this.alignment,
+      this.textAlignment});
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints.tightFor(width: 80.0, height: 80.0),
       child: ElevatedButton(
-        style: style,
+        style: (alignment == Alignment.center)? style : style1,
         onPressed: buttonTapped,
-        child: Text(
-          buttonText,
-          style: TextStyle(color: textColor, fontSize: 30),
+        child: Align(
+          alignment: alignment,
+          child: Text(
+            buttonText,
+            textAlign: TextAlign.center,
+            style: textColor,
+          ),
         ),
       ),
     );
